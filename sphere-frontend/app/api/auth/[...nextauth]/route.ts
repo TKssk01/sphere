@@ -1,11 +1,8 @@
-// app/api/auth/[...nextauth]/route.ts
-
-import NextAuth, { type NextAuthOptions, type Session } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { type JWT } from "next-auth/jwt";
 import { supabase } from "@/lib/supabaseClient";
 
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Supabase",
@@ -15,7 +12,7 @@ export default NextAuth({
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Email and password are required");
+          throw new Error("Emailとパスワードは必須です");
         }
 
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -24,7 +21,7 @@ export default NextAuth({
         });
 
         if (error || !data.user) {
-          throw new Error(error?.message || "Login failed");
+          throw new Error(error?.message || "ログインに失敗しました");
         }
 
         // ユーザーのプラン情報を取得
@@ -35,7 +32,7 @@ export default NextAuth({
           .single();
 
         if (userError) {
-          throw new Error("Failed to fetch user data");
+          throw new Error("ユーザーデータの取得に失敗しました");
         }
 
         return {
@@ -48,25 +45,14 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, token }: { session: Session; token: JWT }) {
+    async session({ session, token }) {
       if (session.user) {
         session.user.email = token.sub as string;
         // session.user.plan_grade = token.plan_grade; // plan_gradeをセッションに追加
       }
       return session;
     },
-    async jwt({
-      token,
-      user,
-    }: {
-      token: JWT;
-      user: {
-        id: string;
-        name?: string | null;
-        email?: string | null;
-        plan_grade?: number;
-      };
-    }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         // token.plan_grade = user.plan_grade; // plan_gradeをJWTトークンに追加
@@ -75,3 +61,5 @@ export default NextAuth({
     },
   },
 });
+
+export { handler as GET, handler as POST };
