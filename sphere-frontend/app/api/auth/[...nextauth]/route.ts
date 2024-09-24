@@ -1,6 +1,8 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { supabase } from '@/lib/supabaseClient';
+// import { authOptions } from "@/lib/auth"; // authOptions を別ファイルからインポート
+
 
 export const authOptions: NextAuthOptions = {
   providers: [
