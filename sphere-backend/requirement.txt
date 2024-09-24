@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+requests
+python-dotenv
+supabase
+jwt
+python-jose
+pydantic

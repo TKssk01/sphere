@@ -1,0 +1,43 @@
+{
+  "name": "sphere-frontend-2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.1.5",
+    "@hookform/resolvers": "^3.9.0",
+    "@stripe/stripe-js": "^4.4.0",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "framer-motion": "^11.5.6",
+    "lucide-react": "^0.445.0",
+    "next": "^14.2.9",
+    "next-auth": "^4.24.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "stripe": "^16.9.0",
+    "styled-components": "^6.1.13",
+    "three": "^0.168.0",
+    "uuid": "^10.0.0",
+    "zod": "^3.23.8",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@supabase/auth-helpers-react": "^0.5.0",
+    "@types/next-auth": "^3.13.0",
+    "@types/node": "^20.16.3",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18",
+    "@types/uuid": "^10.0.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.7",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
