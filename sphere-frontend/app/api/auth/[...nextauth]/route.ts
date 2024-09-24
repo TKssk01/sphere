@@ -1,9 +1,11 @@
-import NextAuth, { type NextAuthOptions, type Session } from "next-auth"; // Session を next-auth からインポート
+// app/api/auth/[...nextauth]/route.ts
+
+import NextAuth, { type NextAuthOptions, type Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { type JWT } from "next-auth/jwt";
 import { supabase } from "@/lib/supabaseClient";
 
-export const authOptions: NextAuthOptions = {
+export default NextAuth({
   providers: [
     CredentialsProvider({
       name: "Supabase",
@@ -72,7 +74,4 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
-};
-
-// default エクスポートとして NextAuth ハンドラーを指定
-export default NextAuth(authOptions);
+});
