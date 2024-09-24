@@ -1,7 +1,8 @@
-import NextAuth, { type NextAuthOptions, type Session } from "next-auth"; // Session を next-auth からインポート
+import NextAuth, { type NextAuthOptions, type Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { type JWT } from "next-auth/jwt";
 import { supabase } from "@/lib/supabaseClient";
+
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -74,5 +75,6 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-// default エクスポートとして NextAuth ハンドラーを指定
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
