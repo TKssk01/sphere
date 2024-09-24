@@ -17,22 +17,27 @@ export default function NewPassword() {
     event.preventDefault();
     setError(null);
     setMessage('');
-
+  
     try {
       const accessToken = new URLSearchParams(window.location.search).get('access_token');
       if (!accessToken) {
         throw new Error('アクセストークンがありません');
       }
-
-      // 正しいメソッドに修正: supabase.auth.updateUser()
-      const { error } = await supabase.auth.api.updateUser(accessToken, {
+  
+      // 修正: updateUser() の戻り値の型を Session | null に変更
+      const { data, error }: { data: Session | null; error: Error | null } = await supabase.auth.updateUser(accessToken, {
         password,
       });
-
+  
       if (error) {
         throw error;
       }
-
+  
+      // data を使用する場合は、data が null でないことを確認
+      if (data) {
+        // data を使用した処理
+      }
+  
       setMessage('パスワードが再設定されました。');
       setPassword('');
       router.push('/auth/login'); 
