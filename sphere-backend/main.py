@@ -12,7 +12,6 @@ from typing import Optional
 from fastapi import Request
 from supabase import create_client, Client
 from fastapi import FastAPI, Depends, HTTPException
-import jwt
 from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse

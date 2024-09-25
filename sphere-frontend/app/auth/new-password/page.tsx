@@ -10,39 +10,47 @@ const supabase = createClientComponentClient<Database>();
 export default function NewPassword() {
   const router = useRouter();
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     setError(null);
     setMessage('');
-  
+
     try {
       const accessToken = new URLSearchParams(window.location.search).get('access_token');
       if (!accessToken) {
         throw new Error('アクセストークンがありません');
       }
-  
-      // 修正: updateUser() の戻り値の型を Session | null に変更
-      const { data, error }: { data: Session | null; error: Error | null } = await supabase.auth.updateUser(accessToken, {
-        password,
+
+      // APIルートにリクエストを送信
+      const response = await fetch('/api/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          accessToken,
+          newPassword: password,
+        }),
       });
-  
-      if (error) {
-        throw error;
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'パスワードの更新に失敗しました');
       }
-  
-      // data を使用する場合は、data が null でないことを確認
-      if (data) {
-        // data を使用した処理
-      }
-  
+
       setMessage('パスワードが再設定されました。');
       setPassword('');
-      router.push('/auth/login'); 
-    } catch (error) {
-      setError(error);
+      router.push('/auth/login');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('予期しないエラーが発生しました');
+      }
     }
   };
 

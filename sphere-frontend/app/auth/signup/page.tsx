@@ -1,26 +1,28 @@
-// import { cookies } from 'next/headers'
-// import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-// import { redirect } from 'next/navigation'
-// import Signup from '@/app/components/signup'
-// import type { Database } from '@/lib/database.types'
+export const dynamic = 'force-dynamic';
 
-// // サインアップページ
-// const SignupPage = async () => {
-//   const supabase = createServerComponentClient<Database>({
-//     cookies,
-//   })
+import { cookies } from 'next/headers'
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+import { redirect } from 'next/navigation'
+import Signup from '../../components/signup'
+import type { Database } from '@/lib/database.types'
 
-//   // セッションの取得
-//   const {
-//     data: { session },
-//   } = await supabase.auth.getSession()
+// サインアップページ
+const SignupPage = async () => {
+  const supabase = createServerComponentClient<Database>({
+    cookies,
+  })
 
-//   // 認証している場合、リダイレクト
-//   if (session) {
-//     redirect('/')
-//   }
+  // セッションの取得
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
 
-//   return <Signup />
-// }
+  // 認証している場合、リダイレクト
+  if (session) {
+    redirect('/')
+  }
 
-// export default SignupPage
+  return <Signup />
+}
+
+export default SignupPage

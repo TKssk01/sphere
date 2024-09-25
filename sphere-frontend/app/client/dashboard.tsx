@@ -36,7 +36,7 @@ interface User {
   id: string;
   email: string;
   name: string | null;
-  plan_grade: string;
+  plan_grade: string | null;
   aukabucom_api_password: string | null;
   aukabucom_login_password: string | null;
 }
