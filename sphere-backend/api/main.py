@@ -2,6 +2,7 @@ import os
 import json
 import logging
 import urllib.request
+import requests
 from fastapi import FastAPI, HTTPException, Request, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer
