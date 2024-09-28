@@ -1,8 +1,9 @@
 fastapi
 uvicorn
 requests
-python-dotenv
-supabase
-jwt
-python-jose
+httpx
 pydantic
+supabase
+mangum
+python-dotenv
+jwt

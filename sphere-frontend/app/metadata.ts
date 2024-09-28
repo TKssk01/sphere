@@ -1,4 +1,4 @@
 export const metadata = {
-    title: 'Sphere App',
+    title: 'Sphere',
     description: 'Finance System Trading System',
   };
