@@ -1,28 +1,27 @@
 export const dynamic = 'force-dynamic';
 
-import { cookies } from 'next/headers'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { redirect } from 'next/navigation'
-import Signup from '../../components/signup'
-import type { Database } from '@/lib/database.types'
+import { cookies } from 'next/headers';
+import { supabase } from '@/lib/supabaseClient'; // クライアントサイドと統一
+import { redirect } from 'next/navigation';
+import Signup from '../../components/signup';
+import type { Database } from '@/lib/database.types';
 
 // サインアップページ
 const SignupPage = async () => {
-  const supabase = createServerComponentClient<Database>({
-    cookies,
-  })
+  // サーバーサイドでsupabaseクライアントを使用
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
 
-  // セッションの取得
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  // 認証している場合、リダイレクト
-  if (session) {
-    redirect('/')
+  if (sessionError) {
+    console.error('セッションの取得に失敗しました:', sessionError);
+    // 必要に応じてエラーページへリダイレクト
   }
 
-  return <Signup />
+  // 認証している場合、リダイレクト
+  if (sessionData.session) {
+    redirect('/');
+  }
+
+  return <Signup />;
 }
 
-export default SignupPage
+export default SignupPage;

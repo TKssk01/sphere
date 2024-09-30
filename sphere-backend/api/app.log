@@ -8,3 +8,162 @@
 2024-09-28 10:41:11,471 - ERROR - Unexpected Error: <urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>
 2024-09-28 11:11:22,790 - ERROR - Unexpected Error: <urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>
 2024-09-28 11:11:26,895 - ERROR - Unexpected Error: <urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>
+2024-09-29 14:11:45,321 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:11:45,395 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:11:45,473 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:11:45,475 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:11:45,580 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:11:45,581 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:11:45,655 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:11:45,657 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:14:46,950 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:14:46,961 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:14:47,012 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:14:47,014 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:14:47,114 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:14:47,117 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:14:47,192 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:14:47,194 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:15:56,436 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:15:56,444 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:15:56,525 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:15:56,527 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:15:56,601 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:15:56,601 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:15:56,675 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:15:56,677 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:17:27,256 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:17:27,270 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:17:27,352 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:17:27,354 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:17:27,433 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:17:27,436 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:17:27,511 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:17:27,512 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:19:03,195 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:19:03,207 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:19:03,277 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:19:03,278 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:22:08,025 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:22:08,035 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:22:08,095 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:22:08,096 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:22:08,162 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:22:08,163 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:22:08,247 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:22:08,249 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:24:22,392 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:24:22,407 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:24:22,485 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:24:22,486 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:24:22,546 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:24:22,547 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:24:22,637 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:24:22,638 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:25:20,839 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:25:20,850 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:25:20,898 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:25:20,900 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:25:20,952 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:25:20,955 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:25:21,039 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:25:21,040 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:32,818 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:32,834 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:32,969 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:32,971 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:33,069 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:33,071 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:33,152 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:33,153 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:54,535 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:54,542 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:54,626 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:54,628 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:54,694 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:54,696 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:26:54,766 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:26:54,767 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:27:53,322 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:27:53,332 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:27:53,383 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:27:53,385 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:27:53,452 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:27:53,454 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:27:53,629 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:27:53,630 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:29:16,147 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:29:16,155 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:29:16,204 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:29:16,206 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:29:16,290 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:29:16,292 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:29:16,370 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:29:16,371 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:30:55,715 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:30:55,726 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:30:55,851 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:30:55,852 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:30:55,909 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:30:55,910 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:30:55,986 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:30:55,987 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:35:29,590 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:35:29,602 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:35:29,710 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:35:29,711 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:51:39,645 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-29 14:51:39,670 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-29 14:53:04,296 - INFO - Successfully fetched 0 positions
+2024-09-29 14:53:04,315 - INFO - Successfully fetched 0 positions
+2024-09-29 14:54:41,166 - INFO - Successfully fetched 0 positions
+2024-09-29 14:54:41,181 - INFO - Successfully fetched 0 positions
+2024-09-29 14:56:37,487 - INFO - Successfully fetched 0 positions
+2024-09-29 14:56:37,511 - INFO - Successfully fetched 0 positions
+2024-09-29 15:01:37,975 - INFO - Successfully fetched 0 positions
+2024-09-29 15:02:04,659 - INFO - Successfully fetched 0 positions
+2024-09-29 15:02:04,677 - INFO - Successfully fetched 0 positions
+2024-09-29 15:05:41,498 - INFO - Successfully fetched 0 positions
+2024-09-29 15:05:41,559 - INFO - Successfully fetched 0 positions
+2024-09-29 15:06:52,659 - ERROR - HTTP Error: 400 - {"Code":4002001,"Message":"銘柄が見つからない"}
+2024-09-29 15:06:53,644 - ERROR - HTTP Error: 400 - {"Code":4002001,"Message":"銘柄が見つからない"}
+2024-09-29 15:07:00,188 - INFO - Successfully fetched 0 positions
+2024-09-29 15:07:00,219 - INFO - Successfully fetched 0 positions
+2024-09-29 15:07:42,423 - INFO - Successfully fetched 0 positions
+2024-09-30 10:24:49,830 - INFO - Successfully fetched 0 positions
+2024-09-30 10:24:49,846 - INFO - Successfully fetched 0 positions
+2024-09-30 10:25:01,567 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-30 10:25:01,584 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-30 10:27:42,454 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-30 10:27:42,460 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-30 10:27:51,114 - INFO - Successfully fetched 0 positions
+2024-09-30 10:27:51,137 - INFO - Successfully fetched 0 positions
+2024-09-30 10:41:35,530 - INFO - Successfully fetched 0 positions
+2024-09-30 10:42:17,203 - INFO - Successfully fetched 0 positions
+2024-09-30 10:42:17,225 - INFO - Successfully fetched 0 positions
+2024-09-30 10:42:34,727 - INFO - Successfully fetched 0 positions
+2024-09-30 10:42:34,740 - INFO - Successfully fetched 0 positions
+2024-09-30 10:42:52,467 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-30 10:42:52,489 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-30 10:44:04,441 - INFO - Successfully fetched 0 positions
+2024-09-30 10:44:04,455 - INFO - Successfully fetched 0 positions
+2024-09-30 10:49:41,451 - INFO - Successfully fetched 0 positions
+2024-09-30 10:49:41,469 - INFO - Successfully fetched 0 positions
+2024-09-30 10:49:46,775 - INFO - Search requested for symbol: 7211
+2024-09-30 10:49:47,431 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-30 10:49:47,442 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-30 10:49:47,442 - ERROR - 予期しないエラー: 500: Failed to fetch credentials from Supabase
+2024-09-30 10:50:19,577 - INFO - Search requested for symbol: 7211
+2024-09-30 10:50:19,693 - INFO - HTTP Request: GET https://xgeffionfgacuptwibnp.supabase.co/rest/v1/profiles?select=%2A "HTTP/2 200 OK"
+2024-09-30 10:50:19,696 - ERROR - Error fetching credentials from Supabase: 'APIResponse[~_ReturnT]' object is not subscriptable
+2024-09-30 10:50:19,696 - ERROR - 予期しないエラー: 500: Failed to fetch credentials from Supabase
+2024-09-30 11:04:12,046 - INFO - Successfully fetched 0 positions
+2024-09-30 11:04:12,069 - INFO - Successfully fetched 0 positions
+2024-09-30 11:04:20,075 - ERROR - 予期しないエラーが発生しました: 500: APIトークンの取得に失敗しました。
+2024-09-30 11:04:40,451 - ERROR - 予期しないエラーが発生しました: 500: APIトークンの取得に失敗しました。
+2024-09-30 11:04:43,464 - ERROR - 予期しないエラーが発生しました: 500: APIトークンの取得に失敗しました。
+2024-09-30 11:36:42,214 - INFO - Successfully fetched 0 positions
+2024-09-30 11:36:42,229 - INFO - Successfully fetched 0 positions
+2024-09-30 11:37:00,094 - INFO - Successfully fetched 0 positions
+2024-09-30 11:37:00,114 - INFO - Successfully fetched 0 positions
+2024-09-30 11:38:01,087 - INFO - Successfully fetched 0 positions

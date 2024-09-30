@@ -11,6 +11,20 @@ from typing import Optional
 from supabase import create_client, Client
 from dotenv import load_dotenv
 import os
+import logging
+import asyncio
+
+
+# ロガーを取得
+logger = logging.getLogger("uvicorn.access")
+
+# ログレベルをDEBUGに設定
+logger.setLevel(logging.DEBUG)
+
+# ハンドラーを追加 (必要に応じて)
+handler = logging.StreamHandler()
+handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+logger.addHandler(handler)
 
 ENV = os.getenv("ENV", "development")  # 環境変数 "ENV" を使用
 
@@ -20,7 +34,7 @@ else:
     load_dotenv(".env.development")
 
 # .envファイルをロード（ローカル開発用）
-load_dotenv()
+# load_dotenv()
 
 app = FastAPI()
 security = HTTPBearer()
@@ -88,9 +102,16 @@ async def get_credentials():
     try:
         response = supabase.table("profiles").select("*").execute()
         data = response['data']
+        # デバッグ情報を出力
+        logging.debug(f"Response from Supabase: {data}")
+
+        # デバッグ情報を別のスレッドで出力
+        loop = asyncio.get_event_loop()
+        await loop.run_in_executor(None, print, f"Response from Supabase: {data}") 
         if len(data) < 2:
             raise HTTPException(status_code=500, detail="Insufficient profiles data")
-        api_password = data[1]['aukabucom_api_password']
+        api_password = data[0]['aukabucom_api_password']
+        print(api_password)
         execution_password = data[1]['aukabucom_login_password']
         return api_password, execution_password
     except Exception as e:
@@ -115,15 +136,20 @@ async def get_token_api(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred: {str(e)}")
 
-@app.get('/api/positions')
+@app.post('/api/positions')
 async def get_positions(
+    request: Request,  # リクエストオブジェクトを追加
     product: Optional[Product] = None,
     symbol: Optional[str] = None,
     side: Optional[Side] = None,
     addinfo: Optional[bool] = True
 ):
     try:
-        api_password, _ = await get_credentials()
+        body = await request.json()  # リクエストボディを取得
+        api_password = body.get("APIPassword")
+        if not api_password:
+            raise HTTPException(status_code=400, detail="APIPassword is required")
+
         token = get_kabu_api_token(api_password)
         if not token:
             raise HTTPException(status_code=500, detail="Failed to obtain API token")
@@ -153,10 +179,14 @@ async def get_positions(
         logging.error(f"Error fetching positions from kabustation: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to fetch positions: {str(e)}")
 
-@app.get('/api/asset-info')
-async def get_asset_info():
+@app.post('/api/asset-info')
+async def get_asset_info(request: Request):
     try:
-        api_password, _ = await get_credentials()
+        body = await request.json()
+        api_password = body.get("APIPassword")
+        if not api_password:
+            raise HTTPException(status_code=400, detail="APIPassword is required")
+
         token = get_kabu_api_token(api_password)
         if not token:
             raise HTTPException(status_code=500, detail="Failed to obtain API token")
@@ -166,7 +196,7 @@ async def get_asset_info():
         })
         response.raise_for_status()
         data = response.json()
-        
+
         return {
             'stockAccountWallet': data.get('StockAccountWallet'),
             'auKCStockAccountWallet': data.get('AuKCStockAccountWallet'),
@@ -176,73 +206,50 @@ async def get_asset_info():
         logging.error(f"Failed to fetch asset information: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch asset information: {str(e)}")
 
-@app.get("/api/dashboard-data")
-async def get_dashboard_data():
+
+@app.post("/api/search")
+async def search_by_company_name(request: Request):
     try:
-        api_password, _ = await get_credentials()
+        body = await request.json()
+        api_password = body.get("APIPassword")
+        q = body.get("symbol")
+        if not api_password:
+            raise HTTPException(status_code=400, detail="APIPassword is required")
+        if not q:
+            raise HTTPException(status_code=400, detail="Symbol is required")
+
         token = get_kabu_api_token(api_password)
         if not token:
             raise HTTPException(status_code=500, detail="Failed to obtain API token")
-        
-        # positionsとasset_infoを取得
-        positions_response = requests.get(f"{API_ENDPOINT}/positions", headers={
-            'X-API-KEY': token,
-            'Content-Type': 'application/json'
-        })
-        positions_response.raise_for_status()
-        positions = positions_response.json()
-
-        asset_response = requests.get(f"{API_ENDPOINT}/wallet/cash", headers={
-            'X-API-KEY': token
-        })
-        asset_response.raise_for_status()
-        asset_info = asset_response.json()
-
-        data = {
-            "positions": positions,
-            "asset_info": {
-                'stockAccountWallet': asset_info.get('StockAccountWallet'),
-                'auKCStockAccountWallet': asset_info.get('AuKCStockAccountWallet'),
-                'auJbnStockAccountWallet': asset_info.get('AuJbnStockAccountWallet')
-            },
-            "server_accessible": True,
-            "api_accessible": True
-        }
-        return data
-    except HTTPException as e:
-        raise e
-    except Exception as e:
-        logging.error(f"An unexpected error occurred: {e}")
-        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
-
-@app.get("/api/search")
-async def search_by_company_name(q: str):
-    try:
-        api_password, _ = await get_credentials()
-        token = get_kabu_api_token(api_password)
-        if not token:
-            raise HTTPException(status_code=500, detail="Failed to obtain API token.")
 
         headers = {'X-API-KEY': token}
         market_code = "1"  # 東証
-        
-        board_response = requests.get(f"{API_ENDPOINT}/board/{q}@{market_code}", headers=headers)
-        board_response.raise_for_status()
-        board_info = board_response.json()
 
-        symbol_response = requests.get(f"{API_ENDPOINT}/symbol/{q}@{market_code}", headers=headers)
-        symbol_response.raise_for_status()
-        symbol_info = symbol_response.json()
+        response = requests.get(f"{API_ENDPOINT}/board/{q}@{market_code}", headers=headers)
+        response.raise_for_status()
+        board_info = response.json()
 
-        result = {**board_info, **symbol_info}
+        result = {
+            "Symbol": board_info.get("Symbol"),
+            "SymbolName": board_info.get("SymbolName"),
+            "Exchange": board_info.get("Exchange"),
+            "ExchangeName": board_info.get("ExchangeName"),
+            "CurrentPrice": board_info.get("CurrentPrice"),
+            "CalcPrice": board_info.get("CalcPrice"),
+        }
+
         return result
 
-    except requests.exceptions.HTTPError as e:
-        logging.error(f"HTTP Error: {e.response.status_code} - {e.response.text}")
-        raise HTTPException(status_code=e.response.status_code, detail=f"Kabu Station API Error: {e.response.text}")
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Request Exception: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to search: {str(e)}")
+    except requests.HTTPError as e:
+        logging.error(f"HTTPエラー: {e.response.status_code} - {e.response.text}")
+        raise HTTPException(status_code=e.response.status_code, detail=f"Kabu Station APIエラー: {e.response.text}")
+    except Exception as e:
+        logging.error(f"予期しないエラーが発生しました: {e}")
+        raise HTTPException(status_code=500, detail=f"予期しないエラーが発生しました: {str(e)}")    
+    
+
+
+
 
 @app.post("/api/purchase")
 async def purchase(request_data: dict = Body(...)):

@@ -1,25 +1,21 @@
+// components/SupabaseListener.tsx
 'use server';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import Navigation from './navigation';
 import type { Database } from '../../lib/database.types';
 
-// 認証状態の監視
 const SupabaseListener = async () => {
-  // Supabase クライアントの作成
   const supabase = createServerComponentClient<Database>({ cookies });
 
-  // セッションの取得
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // プロフィールの取得
   let profile = null;
 
   if (session) {
-    // 現在のプロフィールを取得
     const { data: currentProfile, error: profileError } = await supabase
       .from('profiles')
       .select('*')
@@ -31,12 +27,10 @@ const SupabaseListener = async () => {
     } else {
       profile = currentProfile;
 
-      // メールアドレスを変更した場合、プロフィールを更新
-      if (currentProfile && currentProfile.email !== session.user.email) {
-        // メールアドレスを更新
+      if (currentProfile.email !== session.user.email) {
         const { data: updatedProfile, error: updateError } = await supabase
           .from('profiles')
-          .update({ email: session.user.email } as Database['public']['Tables']['profiles']['Update']) // Update 型を使用
+          .update({ email: session.user.email } as Database['public']['Tables']['profiles']['Update'])
           .match({ id: session.user.id })
           .select('*')
           .single();
@@ -50,8 +44,25 @@ const SupabaseListener = async () => {
     }
   }
 
-  // Navigation コンポーネントにセッションとプロフィールを渡す
-  return <Navigation session={session} profile={profile} />;
+  // 現在のURLをヘッダーから取得
+  const reqHeaders = headers();
+  const referer = reqHeaders.get('referer') || '';
+  let pathname = '';
+
+  try {
+    const url = new URL(referer);
+    pathname = url.pathname;
+  } catch (error) {
+    // refererが無効な場合や取得できない場合のフォールバック
+    pathname = '/';
+  }
+
+  // トップページ以外の場合に Navigation を表示
+  if (pathname !== '111') {
+    return <Navigation session={session} profile={profile} />;
+  }
+
+  return null;
 };
 
 export default SupabaseListener;

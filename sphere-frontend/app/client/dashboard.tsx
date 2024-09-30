@@ -50,22 +50,30 @@ type SystemTradeSettings = {
   risk_tolerance: number;
 };
 
+interface SearchResult {
+  Symbol: string;
+  SymbolName: string;
+  Exchange: number;
+  ExchangeName: string;
+  CurrentPrice?: number;
+  CalcPrice?: number;
+  // 必要に応じて他のフィールドを追加
+}
+
 const DashboardContent: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);
   const [purchaseStatus, setPurchaseStatus] = useState<string | null>(null);
   const [positions, setPositions] = useState<Position[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lastUpdated, setLastUpdated] = useState<string | null>(null);
-  const [systemTradeSettings, setSystemTradeSettings] = useState<SystemTradeSettings | null>(null);
   const [assetInfo, setAssetInfo] = useState<any>(null);
   const [assetLoading, setAssetLoading] = useState<boolean>(false);
   const [assetError, setAssetError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResult, setSearchResult] = useState<any>(null);
-
+  const [searchResult, setSearchResult] = useState<SearchResult | null>(null);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   // ユーザーデータの状態変数
   const [userData, setUserData] = useState<User | null>(null);
-
   // ユーザーデータ取得処理
   const fetchUserData = async () => {
     try {
@@ -95,16 +103,17 @@ const DashboardContent: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    // ページ読み込み時にユーザーデータを取得
-    fetchUserData();
-  }, []);
-
-
-  // データ取得関数を分割
-  const fetchPositions = async (token: string): Promise<Position[]> => {
+  // データ取得関数を修正
+  const fetchPositions = async (token: string, apiPassword: string): Promise<Position[]> => {
     try {
-      const response = await fetch('http://localhost:8000/api/positions', { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch('http://localhost:8000/api/positions', {
+        method: 'POST', // POSTメソッドに変更
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ APIPassword: apiPassword }) // APIパスワードを追加
+      });
       if (!response.ok) {
         throw new Error(`ポジション情報の取得に失敗しました: ${response.status}`);
       }
@@ -115,9 +124,16 @@ const DashboardContent: React.FC = () => {
     }
   };
 
-  const fetchAssetInfo = async (token: string): Promise<any> => {
+  const fetchAssetInfo = async (token: string, apiPassword: string): Promise<any> => {
     try {
-      const response = await fetch('http://localhost:8000/api/asset-info', { headers: { 'Authorization': `Bearer ${token}` } });
+      const response = await fetch('http://localhost:8000/api/asset-info', {
+        method: 'POST', // POSTメソッドに変更
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ APIPassword: apiPassword }) // APIパスワードを追加
+      });
       if (!response.ok) {
         throw new Error(`資産情報の取得に失敗しました: ${response.status}`);
       }
@@ -128,13 +144,13 @@ const DashboardContent: React.FC = () => {
     }
   };
 
-  const fetchAllData = useCallback(async (token: string) => {
+  const fetchAllData = useCallback(async (token: string, apiPassword: string) => { // apiPassword を引数に追加
     setIsLoading(true);
     setAssetError(null);
 
     try {
-      const positions = await fetchPositions(token);
-      const assetInfo = await fetchAssetInfo(token);
+      const positions = await fetchPositions(token, apiPassword); // apiPassword を渡す
+      const assetInfo = await fetchAssetInfo(token, apiPassword); // apiPassword を渡す
 
       setPositions(positions);
       setAssetInfo(assetInfo);
@@ -145,6 +161,91 @@ const DashboardContent: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
+  }, []);
+
+  const handleSearch = async (apiPassword: string) => { // apiPassword を引数に追加
+    if (!token) return;
+    setIsSearching(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          APIPassword: apiPassword, // 引数として受け取った apiPassword を使用
+          symbol: searchQuery
+        })
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        setSearchResult(data);
+        console.log(data);
+      } else {
+        const errorMessage = await response.text(); // エラーメッセージを取得
+        console.error('銘柄検索に失敗しました:', response.status, errorMessage);
+        setSearchResult(null);
+        // エラーメッセージをユーザーに表示する処理を追加 (例: alert(errorMessage))
+      }
+    } catch (error) {
+      console.error('銘柄検索中にエラーが発生しました:', error);
+      setSearchResult(null);
+      // エラーメッセージをユーザーに表示する処理を追加 (例: alert('エラーが発生しました'))
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const placeOrder = async (symbol: string, qty: number, aukabucom_login_password: string | null, aukabucom_api_password: string | null): Promise<void> => { // aukabucom_api_password を引数に追加
+    if (!token) {
+      setPurchaseStatus('認証トークンがありません。ログインしてください。');
+      return;
+    }
+    try {
+      const requestData = { 
+        symbol, 
+        qty, 
+        aukabucom_login_password, // リクエストボディに追加
+        aukabucom_api_password // リクエストボディに追加
+      };
+      const requestHeaders: HeadersInit = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      };
+  
+      const response = await fetch('http://localhost:8000/api/purchase', {
+        method: 'POST',
+        headers: requestHeaders,
+        body: JSON.stringify(requestData)
+      });
+
+      if (response.ok) {
+          const data = await response.json();
+          setPurchaseStatus(data.message);
+      } else {
+          const errorData = await response.json();
+          setPurchaseStatus(errorData.detail || 'Purchase failed');
+      }
+    } catch (error) {
+      console.error('Error during purchase:', error);
+      setPurchaseStatus('Purchase failed');
+    }
+  };
+
+  const formatCurrency = (value: number | null) => {
+    if (value === null) return 'N/A';
+    return new Intl.NumberFormat('ja-JP', {
+      style: 'currency',
+      currency: 'JPY',
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    }).format(value);
+  };
+
+  useEffect(() => {
+    // ページ読み込み時にユーザーデータを取得
+    fetchUserData();
   }, []);
 
   // トークンとデータを取得する useEffect
@@ -172,7 +273,11 @@ const DashboardContent: React.FC = () => {
         }
         const data = await response.json();
         setToken(data.token);
-        await fetchAllData(data.token);
+
+        // apiPassword を取得
+        const apiPassword = userData?.aukabucom_api_password || ''; 
+
+        await fetchAllData(data.token, apiPassword); // apiPassword を渡す
       } catch (error) {
         console.error('Error fetching token:', error);
       }
@@ -183,93 +288,6 @@ const DashboardContent: React.FC = () => {
       fetchTokenAndData();
     }
   }, [userData, fetchAllData]); // 変更点: `userData` を依存配列に追加
-
-
-
-  const handleRefresh = useCallback(() => {
-    if (token) {
-      fetchAllData(token);
-    }
-  }, [token, fetchAllData]);
-
-  const placeOrder = async (symbol: string, qty: number, aukabucom_login_password: string | null, aukabucom_api_password: string | null): Promise<void> => { // aukabucom_api_password を引数に追加
-    if (!token) {
-      setPurchaseStatus('認証トークンがありません。ログインしてください。');
-      return;
-    }
-    try {
-      const requestData = { 
-        symbol, 
-        qty, 
-        aukabucom_login_password, // リクエストボディに追加
-        aukabucom_api_password // リクエストボディに追加
-      };
-      const requestHeaders: HeadersInit = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      };
-  
-      const response = await fetch('http://localhost:8000/api/purchase', {
-        method: 'POST',
-        headers: requestHeaders,
-        body: JSON.stringify(requestData)
-      });
-
-        if (response.ok) {
-            const data = await response.json();
-            setPurchaseStatus(data.message);
-        } else {
-            const errorData = await response.json();
-            setPurchaseStatus(errorData.detail || 'Purchase failed');
-        }
-    } catch (error) {
-        console.error('Error during purchase:', error);
-        setPurchaseStatus('Purchase failed');
-    }
-};
-
-
-
-  // const handlePurchase = (): void => {
-  //   placeOrder('6072', 100);
-  // };
-
-  const handleSystemTradeSettingsChange = (settings: any) => {
-    setSystemTradeSettings(settings as SystemTradeSettings);
-  };
-
-  const formatCurrency = (value: number | null) => {
-    if (value === null) return 'N/A';
-    return new Intl.NumberFormat('ja-JP', {
-      style: 'currency',
-      currency: 'JPY',
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1,
-    }).format(value);
-  };
-
-  const handleSearch = async () => {
-    if (!token) return;
-    try {
-      const response = await fetch(`http://localhost:8000/api/search?q=${searchQuery}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setSearchResult(data);
-        console.log(data);
-      } else {
-        console.error('銘柄検索に失敗しました:', response.status);
-        setSearchResult(null);
-      }
-    } catch (error) {
-      console.error('銘柄検索中にエラーが発生しました:', error);
-      setSearchResult(null);
-    }
-  };
 
   return (
     <div className="max-w-6xl mx-auto p-4">
@@ -319,16 +337,6 @@ const DashboardContent: React.FC = () => {
       )}
 
       <div className="mb-6">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-2xl font-bold">Current Positions</h2>
-          <button
-            onClick={handleRefresh}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            disabled={isLoading}
-          >
-            {isLoading ? 'Updating...' : 'Refresh'}
-          </button>
-        </div>
         {lastUpdated && (
           <p className="text-sm text-gray-500 mb-2">Last updated: {lastUpdated}</p>
         )}
@@ -375,12 +383,24 @@ const DashboardContent: React.FC = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              handleSearch();
+              if (userData?.aukabucom_api_password) {
+                handleSearch(userData.aukabucom_api_password);
+              } else {
+                // APIパスワードが取得できない場合の処理 (例: エラーメッセージを表示)
+                console.error("APIパスワードが取得できません。");
+              }
             }
           }}
         />
         <button
-          onClick={handleSearch}
+          onClick={() => {
+            if (userData?.aukabucom_api_password) { 
+              handleSearch(userData.aukabucom_api_password); 
+            } else {
+              // APIパスワードが取得できない場合の処理 (例: エラーメッセージを表示)
+              console.error("APIパスワードが取得できません。");
+            }
+          }}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
           disabled={!searchQuery}
         >
@@ -388,16 +408,24 @@ const DashboardContent: React.FC = () => {
         </button>
       </div>
 
-      {searchResult && (
+      {isSearching ? (
+        <div className="flex items-center mt-4">
+          <svg className="animate-spin h-5 w-5 mr-3 ..." xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+          </svg>
+          検索中...
+        </div>
+      ) : searchResult ? (
         <div className="mt-4">
           <h3 className="text-xl font-bold">検索結果</h3>
           <p>銘柄コード: {searchResult.Symbol}</p>
           <p>会社名: {searchResult.SymbolName}</p>
-          <p>現在価格: {searchResult.CurrentPrice ? searchResult.CurrentPrice : searchResult.CalcPrice}</p>
+          <p>現在価格: {searchResult.CurrentPrice !== undefined && searchResult.CurrentPrice !== null ? searchResult.CurrentPrice : 'N/A'}</p>
           <button
             onClick={() => {
               if (userData) { // userDataがnullでないことを確認
-                placeOrder(searchResult.Symbol, 100, userData.aukabucom_login_password , userData.aukabucom_api_password);
+                placeOrder(searchResult.Symbol, 100, userData.aukabucom_login_password, userData.aukabucom_api_password);
               } else {
                 // userDataがnullの場合の処理 (例: エラーメッセージを表示)
                 console.error("ユーザーデータが取得できていません。");
@@ -408,51 +436,8 @@ const DashboardContent: React.FC = () => {
             100株購入
           </button>
         </div>
-      )}
+      ) : null}
 
-      {/* <div className="flex justify-center gap-4 mb-6">
-        <button
-          onClick={handlePurchase}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          地盤HDを100株注文
-        </button>
-        <button
-          onClick={() => placeOrder('7021', 100)}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        >
-          三菱重工 100株
-        </button>
-      </div> */}
-
-      {purchaseStatus === "Order successful" && (
-        <div className="mt-6 text-green-500 font-bold">
-          <p>注文完了</p>
-        </div>
-      )}
-      {purchaseStatus && purchaseStatus !== "Order successful" && (
-        <div className="mt-6 text-red-500 font-bold">
-          <h2 className="text-xl font-bold mb-2">Purchase Status:</h2>
-          <p>{purchaseStatus}</p>
-        </div>
-      )}
-
-      {/* <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">System Trade Settings</h2>
-        <SystemTradeSettingsComponent
-          onSettingsChange={handleSystemTradeSettingsChange}
-          token={token}
-        />
-      </div>
-
-      {systemTradeSettings && (
-        <div className="mt-4">
-          <h3 className="text-xl font-bold">Current System Trade Settings:</h3>
-          <pre className="bg-gray-100 p-4 rounded mt-2">
-            {JSON.stringify(systemTradeSettings, null, 2)}
-          </pre>
-        </div>
-      )} */}
       {/* ユーザーデータを表示 */}
       {userData === null ? ( 
         <p>Loading user data...</p> // userDataがnull（まだ取得されていない）場合はローディング表示
